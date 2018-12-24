@@ -18,9 +18,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
-    NSLog(@"branch_2修改");
-    NSLog(@"branche_1修改");
     return YES;
 }
 
