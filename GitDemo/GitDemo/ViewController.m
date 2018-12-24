@@ -21,5 +21,21 @@
     NSLog(@"-- 这是3分支");
 }
 
+- (void)test {
+    
+    NSLog(@"-- Test");
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    dispatch_async(queue, ^{
+        
+        NSLog(@"-- 1");
+        [self performSelector:@selector(test) withObject:nil afterDelay:3.0];
+        NSLog(@"-- 2");
+        
+    });
+}
 
 @end
