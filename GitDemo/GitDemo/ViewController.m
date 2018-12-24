@@ -19,6 +19,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     NSLog(@"-- 这是3分支");
+    NSLog(@"-- 这是4分支");
 }
 
 - (void)test {
