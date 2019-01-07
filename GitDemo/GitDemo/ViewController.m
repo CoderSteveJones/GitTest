@@ -8,7 +8,10 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController (){
+    NSInteger _ticketCount;
+    NSInteger _sellTicketCount;
+}
 
 @end
 
@@ -17,29 +20,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    _ticketCount = 50;
+    _sellTicketCount = 0;
     
-    NSLog(@"-- 这是3分支");
-    NSLog(@"-- 这是4分支");
+    NSThread *thread1 = [[NSThread alloc] initWithTarget:self selector:@selector(sellTicket) object:nil];
     
+    thread1.name = @"线程1";
     
-    NSLog(@"测试回滚");
+    NSThread *thread2 = [[NSThread alloc] initWithTarget:self selector:@selector(sellTicket) object:nil];
+
+    thread2.name = @"线程2";
+    
+    [thread1 start];
+    [thread2 start];
 }
 
-- (void)test {
+- (void)sellTicket {
     
-    NSLog(@"-- Test");
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    dispatch_async(queue, ^{
+    while (_ticketCount > 0) {
         
-        NSLog(@"-- 1");
-        [self performSelector:@selector(test) withObject:nil afterDelay:3.0];
-        NSLog(@"-- 2");
+        sleep(.2);
+        _ticketCount --;
+        _sellTicketCount ++;
         
-    });
+        NSLog(@" -- %@ - %ld ",[NSThread currentThread].name,_ticketCount);
+    }
 }
 
 @end
